@@ -57,6 +57,7 @@ create table mlr_legacy_data.legacy_location
 ,site_cr                        date
 ,site_mn                        character(8)
 ,site_md                        date
+,mcd_cd                         character(5)
 ,constraint legacy_location_ak
   unique (agency_cd, site_no)
 );
