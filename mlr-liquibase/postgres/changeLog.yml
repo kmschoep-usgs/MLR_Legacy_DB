@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+    - runningAs:
+        username: postgres
+
+#  - include:
+#      file: "dbSetup.sql"
+#      relativeToChangelogFile: true
+
+  - changeSet:
+      author: drsteini
+      id: "alter_databasechangelog_owner_mlr_legacy"
+      changes:
+        - sql: alter table public.databasechangelog owner to mlr_legacy;
+        - rollback: alter table public.databasechangelog owner to postgres;
+
+  - changeSet:
+      author: drsteini
+      id: "alter_databasechangeloglock_owner_mlr_legacy"
+      changes:
+        - sql: alter table public.databasechangeloglock owner to mlr_legacy;
+        - rollback: alter table public.databasechangeloglock owner to postgres;

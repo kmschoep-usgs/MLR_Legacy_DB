@@ -57,9 +57,7 @@ create table mlr_legacy_data.legacy_location
 ,site_cr                        date                    not null
 ,site_mn                        character(8)            not null
 ,site_md                        date                    not null
-,constraint legacy_location_pk
-  primary key (legacy_location_id)
 ,constraint legacy_location_ak
   unique (agency_cd, site_no)
 );
-alter table mlr_legacy_data.legacy_location owner to nldi_data;
+alter table mlr_legacy_data.legacy_location owner to mlr_legacy_data;
