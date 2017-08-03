@@ -1,9 +1,10 @@
 databaseChangeLog:
 
-  - include:
-      file: "tables/changeLog.yml"
-      relativeToChangelogFile: true
-
-  - include:
-      file: "grants/changeLog.yml"
-      relativeToChangelogFile: true
+  - changeSet:
+      author: drsteini
+      id: "grant.select.all.mlr_legacy_data.tables.mlr_legacy_user"
+      changes:
+        - sql:
+            sql: grant select on all tables in schema mlr_legacy_data to mlr_legacy_user;
+        - rollback: revoke select on all tables in schema mlr_legacy_data from mlr_legacy_user;
+     

@@ -4,6 +4,6 @@ databaseChangeLog:
       file: "tables/changeLog.yml"
       relativeToChangelogFile: true
 
-#  - include:
-#      file: "grants/changeLog.yml"
-#      relativeToChangelogFile: true
+  - include:
+      file: "grants/changeLog.yml"
+      relativeToChangelogFile: true
