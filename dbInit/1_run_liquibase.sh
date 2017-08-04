@@ -9,14 +9,6 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
 	alter database mlr_legacy owner to mlr_legacy;
 EOSQL
 
-# commands requiring superuser
-#java -jar ${LIQUIBASE_HOME}/liquibase.jar \
-#	--defaultsFile=${LIQUIBASE_HOME}/liquibasePostgres.properties \
-#	--classpath=${LIQUIBASE_HOME}/lib/postgresql-${POSTGRES_JDBC_VERSION}.jar \
-#	--changeLogFile=${JENKINS_WORKSPACE}/MLR_Legacy_DB/liquibase/postgres/changeLog.yml \
-#	update > $LIQUIBASE_HOME/liquibasePostgres.log
-
-# remaining creation scripts
 ${LIQUIBASE_HOME}/liquibase \
 --defaultsFile=${LIQUIBASE_HOME}/liquibase.properties \
 --classpath=${LIQUIBASE_HOME}/lib/postgresql-${POSTGRES_JDBC_VERSION}.jar \

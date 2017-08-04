@@ -1,5 +1,5 @@
 create table mlr_legacy_data.legacy_location
-(legacy_location_id             bigserial               primary key          
+(legacy_location_id             bigserial               primary key
 ,agency_cd                      character(5)
 ,site_no                        character(15)
 ,station_nm                     character varying(50)

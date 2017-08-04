@@ -4,27 +4,7 @@ services:
     build:
       context: .
     environment:
-      - POSTGRES_PASSWORD=mlr
       - POSTGRES_DB=mlr_legacy
-      - MLR_LEGACY_PASSWORD=mlr
-      - MLR_LEGACY_DATA_PASSWORD=mlr
-      - MLR_LEGACY_USER_PASSWORD=mlr
     ports:
       - "5435:5432"
     container_name: mlr_legacy_db
-#  mlr_legacy_db_demo:
-#    depends_on:
-#      - mlr_legacy_db
-#    build:
-#      context: ./mlr-legacy-demo-db
-#    ports:
-#      - "5434:5432"
-#    container_name: mlr_legacy_database_Demo
-#  mlr_legacy_db_ci:
-#    depends_on:
-#      - mlr_legacy_db
-#    build:
-#      context: ./mlr-legacy-ci-db
-#    ports:
-#      - "5433:5432"
-#    container_name: mlr_legacy_database_CI
