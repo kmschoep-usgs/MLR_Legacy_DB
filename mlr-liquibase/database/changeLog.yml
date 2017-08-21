@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+    - runningAs:
+        username: mlr_legacy
+
+  - changeSet:
+      author: drsteini
+      id: "create.database.mlr_legacy"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_database where datname = 'mlr_legacy'
+      runInTransaction: false
+      changes:
+        - sql: create database mlr_legacy with owner = mlr_legacy;
+        - rollback: drop database mlr_legacy if exists;

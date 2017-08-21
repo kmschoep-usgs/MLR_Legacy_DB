@@ -4,7 +4,7 @@ services:
     build:
       context: .
     environment:
-      - POSTGRES_DB=mlr_legacy
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "5435:5432"
     container_name: mlr_legacy_db

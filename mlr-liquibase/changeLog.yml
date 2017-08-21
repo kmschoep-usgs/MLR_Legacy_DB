@@ -12,6 +12,13 @@ databaseChangeLog:
         - sql: alter table public.databasechangelog owner to mlr_legacy;
         - rollback: alter table public.databasechangelog owner to postgres; 
 
+  - changeSet:
+      author: drsteini
+      id: "alter_databasechangeloglock_owner_mlr_legacy"
+      changes:
+        - sql: alter table public.databasechangeloglock owner to mlr_legacy;
+        - rollback: alter table public.databasechangeloglock owner to postgres; 
+
   - include:
       file: "roles/changeLog.yml"
       relativeToChangelogFile: true
