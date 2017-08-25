@@ -6,8 +6,8 @@ create table mlr_legacy_data.legacy_location
 ,station_ix                     character varying(50)
 ,lat_va                         character(11)
 ,long_va                        character(12)
-,dec_lat_va                     double precision
-,dec_long_va                    double precision
+,dec_lat_va                     numeric
+,dec_long_va                    numeric
 ,coord_meth_cd                  character(1)
 ,coord_acy_cd                   character(1)
 ,coord_datum_cd                 character(10)
