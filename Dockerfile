@@ -46,6 +46,8 @@ ADD https://jdbc.postgresql.org/download/postgresql-42.1.3.jar $LIQUIBASE_HOME/l
 
 COPY ./dbInit/1_run_liquibase.sh /docker-entrypoint-initdb.d/
 
+COPY ./dbInit/z.sh /docker-entrypoint-initdb.d/
+
 COPY ./dbInit/postgres.properties $LIQUIBASE_HOME/
 
 COPY ./dbInit/databaseCreate.properties $LIQUIBASE_HOME/
