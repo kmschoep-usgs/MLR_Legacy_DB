@@ -28,5 +28,3 @@ ${LIQUIBASE_HOME}/liquibase \
 --logLevel=debug \
 update \
 -DMLR_LEGACY_DATA_PASSWORD=${MLR_LEGACY_DATA_PASSWORD} -DMLR_LEGACY_USER_PASSWORD=${MLR_LEGACY_USER_PASSWORD} > ${LIQUIBASE_HOME}/liquibase.log
-
-echo Setup Complete

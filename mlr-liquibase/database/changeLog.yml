@@ -18,3 +18,10 @@ databaseChangeLog:
       changes:
         - sql: create database mlr_legacy with owner = mlr_legacy;
         - rollback: drop database mlr_legacy if exists;
+
+  - changeSet:
+      author: drsteini
+      id: "alter.database.mlr_legacy.search_path"
+      changes:
+        - sql: alter database mlr_legacy set search_path = "$user", mlr_legacy_data, public, tiger;
+        - rollback: alter database mlr_legacy reset search_path;
