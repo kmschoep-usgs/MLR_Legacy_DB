@@ -1,62 +1,62 @@
 create table mlr_legacy_data.legacy_location
 (legacy_location_id             bigserial               primary key
-,agency_cd                      character(5)
-,site_no                        character(15)
-,station_nm                     character varying(50)
-,station_ix                     character varying(50)
-,lat_va                         character(11)
-,long_va                        character(12)
+,agency_cd                      character(5)            not null
+,site_no                        character(15)           not null
+,station_nm                     character varying(50)   not null default ' '
+,station_ix                     character varying(50)   not null default ' '
+,lat_va                         character(11)           not null default ' '
+,long_va                        character(12)           not null default ' '
 ,dec_lat_va                     numeric
 ,dec_long_va                    numeric
-,coord_meth_cd                  character(1)
-,coord_acy_cd                   character(1)
-,coord_datum_cd                 character(10)
-,district_cd                    character(3)
-,land_net_ds                    character varying(23)
-,map_nm                         character varying(20)
-,country_cd                     character(2)
-,state_cd                       character(2)
-,county_cd                      character(3)
-,map_scale_fc                   character(7)
-,alt_va                         character(8)
-,alt_meth_cd                    character(1)
-,alt_acy_va                     character(3)
-,alt_datum_cd                   character(10)
-,huc_cd                         character varying(16)
-,agency_use_cd                  character(1)
-,basin_cd                       character(2)
-,site_tp_cd                     character varying(7)
-,topo_cd                        character(1)
-,data_types_cd                  character(30)
-,instruments_cd                 character(30)
-,site_rmks_tx                   character varying(50)
-,inventory_dt                   character(8)
-,drain_area_va                  character(8)
-,contrib_drain_area_va          character(8)
-,tz_cd                          character(6)
-,local_time_fg                  character(1)
-,gw_file_cd                     character(30)
-,construction_dt                character(8)
-,reliability_cd                 character(1)
-,aqfr_cd                        character(8)
-,nat_aqfr_cd                    character(10)
-,site_use_1_cd                  character(1)
-,site_use_2_cd                  character(1)
-,site_use_3_cd                  character(1)
-,water_use_1_cd                 character(1)
-,water_use_2_cd                 character(1)
-,water_use_3_cd                 character(1)
-,nat_water_use_cd               character(2)
-,aqfr_type_cd                   character(1)
-,well_depth_va                  character(8)
-,hole_depth_va                  character(8)
-,depth_src_cd                   character(1)
-,project_no                     character(12)
-,site_web_cd                    character(1)
-,site_cn                        character(8)
-,site_cr                        date
-,site_mn                        character(8)
-,site_md                        date
+,coord_meth_cd                  character(1)            not null default ' '
+,coord_acy_cd                   character(1)            not null default ' '
+,coord_datum_cd                 character(10)           not null default ' '
+,district_cd                    character(3)            not null default ' '
+,land_net_ds                    character varying(23)   not null default ' '
+,map_nm                         character varying(20)   not null default ' '
+,country_cd                     character(2)            not null default ' '
+,state_cd                       character(2)            not null default ' '
+,county_cd                      character(3)            not null default ' '
+,map_scale_fc                   character(7)            not null default ' '
+,alt_va                         character(8)            not null default ' '
+,alt_meth_cd                    character(1)            not null default ' '
+,alt_acy_va                     character(3)            not null default ' '
+,alt_datum_cd                   character(10)           not null default ' '
+,huc_cd                         character varying(16)   not null default ' '
+,agency_use_cd                  character(1)            not null default ' '
+,basin_cd                       character(2)            not null default ' '
+,site_tp_cd                     character varying(7)    not null default ' '
+,topo_cd                        character(1)            not null default ' '
+,data_types_cd                  character(30)           not null default ' '
+,instruments_cd                 character(30)           not null default ' '
+,site_rmks_tx                   character varying(50)   not null default ' '
+,inventory_dt                   character(8)            not null default ' '
+,drain_area_va                  character(8)            not null default ' '
+,contrib_drain_area_va          character(8)            not null default ' '
+,tz_cd                          character(6)            not null default ' '
+,local_time_fg                  character(1)            not null default ' '
+,gw_file_cd                     character(30)           not null default ' '
+,construction_dt                character(8)            not null default ' '
+,reliability_cd                 character(1)            not null default ' '
+,aqfr_cd                        character(8)            not null default ' '
+,nat_aqfr_cd                    character(10)           not null default ' '
+,site_use_1_cd                  character(1)            not null default ' '
+,site_use_2_cd                  character(1)            not null default ' '
+,site_use_3_cd                  character(1)            not null default ' '
+,water_use_1_cd                 character(1)            not null default ' '
+,water_use_2_cd                 character(1)            not null default ' '
+,water_use_3_cd                 character(1)            not null default ' '
+,nat_water_use_cd               character(2)            not null default ' '
+,aqfr_type_cd                   character(1)            not null default ' '
+,well_depth_va                  character(8)            not null default ' '
+,hole_depth_va                  character(8)            not null default ' '
+,depth_src_cd                   character(1)            not null default ' '
+,project_no                     character(12)           not null default ' '
+,site_web_cd                    character(1)            not null default ' '
+,site_cn                        character(8)            not null
+,site_cr                        timestamp               not null
+,site_mn                        character(8)            not null
+,site_md                        timestamp               not null
 ,mcd_cd                         character(5)
 ,constraint legacy_location_ak
   unique (agency_cd, site_no)
