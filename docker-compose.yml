@@ -8,6 +8,7 @@ services:
       - MLR_LEGACY_PASSWORD=${MLR_LEGACY_PASSWORD}
       - MLR_LEGACY_DATA_PASSWORD=${MLR_LEGACY_DATA_PASSWORD}
       - MLR_LEGACY_USER_PASSWORD=${MLR_LEGACY_USER_PASSWORD}
+      - MLR_RDS_ADDRESS=${MLR_RDS_ADDRESS}
     ports:
       - "5435:5432"
     container_name: mlr_legacy_db
