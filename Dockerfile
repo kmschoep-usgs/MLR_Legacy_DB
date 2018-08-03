@@ -22,6 +22,14 @@ RUN set -x \
     && apk add --no-cache curl\
     && apk add --no-cache openjdk8 \
     && [ "$JAVA_HOME" = "$(docker-java-home)" ]
+    
+###########################################
+# Install git
+###########################################
+
+RUN apk --update add git openssh && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm /var/cache/apk/*
 
 
 ############################################
@@ -31,29 +39,28 @@ RUN set -x \
 ENV LIQUIBASE_HOME /opt/liquibase
 ENV LOCALONLY "-c listen_addresses='127.0.0.1, ::1'"
 ENV LIQUIBASE_VERSION 3.5.3
-ENV POSTGRES_JDBC_VERSION 42.1.3
+ENV POSTGRES_JDBC_VERSION 42.2.4
+ENV MLR_LIQUIBASE_VERSION 1.0
 
 RUN mkdir -p $LIQUIBASE_HOME
-RUN curl -Lk https://github.com/liquibase/liquibase/releases/download/liquibase-parent-$LIQUIBASE_VERSION/liquibase-$LIQUIBASE_VERSION-bin.tar.gz > liquibase-3.5.3-bin.tar.gz
+RUN curl -Lk https://github.com/liquibase/liquibase/releases/download/liquibase-parent-$LIQUIBASE_VERSION/liquibase-$LIQUIBASE_VERSION-bin.tar.gz > liquibase-$LIQUIBASE_VERSION-bin.tar.gz
 RUN tar -xzf liquibase-$LIQUIBASE_VERSION-bin.tar.gz -C $LIQUIBASE_HOME/
 
-ADD https://jdbc.postgresql.org/download/postgresql-42.1.3.jar $LIQUIBASE_HOME/lib/
+ADD https://jdbc.postgresql.org/download/postgresql-$POSTGRES_JDBC_VERSION.jar $LIQUIBASE_HOME/lib/
+
+RUN curl -Lk https://github.com/USGS-CIDA/mlr-legacy-liquibase/archive/v$MLR_LIQUIBASE_VERSION.tar.gz > mlr-legacy-liquibase.tar.gz
+RUN tar -xzf mlr-legacy-liquibase.tar.gz -C $LIQUIBASE_HOME/
+RUN mv $LIQUIBASE_HOME/mlr-legacy-liquibase-$MLR_LIQUIBASE_VERSION $LIQUIBASE_HOME/mlr-legacy-liquibase
 
 
 ############################################
 # Grab Files to Configure Database with Liquibase
 ############################################
 
+COPY ./testData $LIQUIBASE_HOME/mlr-legacy-liquibase/mlr-liquibase/mlrLegacy/testData
+
 COPY ./dbInit/1_run_liquibase.sh /docker-entrypoint-initdb.d/
 
 COPY ./dbInit/z.sh /docker-entrypoint-initdb.d/
-
-COPY ./dbInit/postgres.properties $LIQUIBASE_HOME/
-
-COPY ./dbInit/databaseCreate.properties $LIQUIBASE_HOME/
-
-COPY ./dbInit/liquibase.properties $LIQUIBASE_HOME/
-
-COPY ./mlr-liquibase $LIQUIBASE_HOME/mlr-liquibase/
 
 RUN chmod -R 777 $LIQUIBASE_HOME

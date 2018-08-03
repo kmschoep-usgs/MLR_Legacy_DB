@@ -1,6 +1,6 @@
 version: '3'
 services:
-  mlr_legacy_db:
+  mlr_legacy_db_test:
     build:
       context: .
     environment:
@@ -9,6 +9,7 @@ services:
       - MLR_LEGACY_DATA_PASSWORD=${MLR_LEGACY_DATA_PASSWORD}
       - MLR_LEGACY_USER_PASSWORD=${MLR_LEGACY_USER_PASSWORD}
       - MLR_RDS_ADDRESS=${MLR_RDS_ADDRESS}
+      - MLR_LIQUIBASE_VERSION=${MLR_LIQUIBASE_VERSION}
     ports:
       - "5435:5432"
-    container_name: mlr_legacy_db
+    container_name: mlr_legacy_db_test

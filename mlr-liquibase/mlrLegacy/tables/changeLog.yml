@@ -1,5 +1,0 @@
-databaseChangeLog:
-
-  - include:
-      file: "legacyLocation/changeLog.yml"
-      relativeToChangelogFile: true

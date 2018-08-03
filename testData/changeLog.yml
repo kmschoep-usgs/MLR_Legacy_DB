@@ -1,0 +1,19 @@
+databaseChangeLog:
+
+  - changeSet:
+      author: kmschoep
+      id: "load.data.mlr_legacy_data.legacy_location_NWISAK"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - tableExists:
+            tableName: legacy_location
+      changes:
+        - loadData:
+            encoding: UTF-8
+            file: "NWISAK.csv"
+            quotchar: '"'
+            schemaName: mlr_legacy_data
+            separator: ','
+            tableName: legacy_location
+            relativeToChangelogFile: true
