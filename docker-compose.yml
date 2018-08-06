@@ -1,6 +1,6 @@
 version: '3'
 services:
-  mlr_legacy_db_test:
+  mlr-legacy-db-test:
     build:
       context: .
     environment:
@@ -12,6 +12,6 @@ services:
       - MLR_LIQUIBASE_VERSION=${MLR_LIQUIBASE_VERSION}
     ports:
       - "5435:5432"
-    container_name: mlr_legacy_db_test
+    container_name: mlr-legacy-db-test
     env_file:
         - docker-compose.env
