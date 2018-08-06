@@ -6,7 +6,7 @@ pg_ctl -D "$PGDATA" -m fast -o "$LOCALONLY" -w restart
 # superuser scripts
 ${LIQUIBASE_HOME}/liquibase \
 --defaultsFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/postgres.properties \
---classpath=${LIQUIBASE_HOME}/lib/postgresql-${POSTGRES_JDBC_VERSION}.jar \
+--classpath=${LIQUIBASE_HOME}/lib/postgresql.jar \
 --url="jdbc:postgresql://${MLR_RDS_ADDRESS}:5432/postgres" \
 --changeLogFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/postgres/changeLog.yml \
 --logLevel=debug \
@@ -16,7 +16,7 @@ update \
 # application database create scripts
 ${LIQUIBASE_HOME}/liquibase \
 --defaultsFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/databaseCreate.properties \
---classpath=${LIQUIBASE_HOME}/lib/postgresql-${POSTGRES_JDBC_VERSION}.jar \
+--classpath=${LIQUIBASE_HOME}/lib/postgresql.jar \
 --url="jdbc:postgresql://${MLR_RDS_ADDRESS}:5432/postgres" \
 --changeLogFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/database/changeLog.yml \
 --logLevel=debug \
@@ -26,7 +26,7 @@ update \
 # application scripts
 ${LIQUIBASE_HOME}/liquibase \
 --defaultsFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/liquibase.properties \
---classpath=${LIQUIBASE_HOME}/lib/postgresql-${POSTGRES_JDBC_VERSION}.jar \
+--classpath=${LIQUIBASE_HOME}/lib/postgresql.jar \
 --url="jdbc:postgresql://${MLR_RDS_ADDRESS}:5432/mlr_legacy" \
 --changeLogFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/changeLog.yml \
 --logLevel=debug \
@@ -36,7 +36,7 @@ update \
 echo "data load scripts"
 ${LIQUIBASE_HOME}/liquibase \
 --defaultsFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/liquibase.properties \
---classpath=${LIQUIBASE_HOME}/lib/postgresql-${POSTGRES_JDBC_VERSION}.jar \
+--classpath=${LIQUIBASE_HOME}/lib/postgresql.jar \
 --changeLogFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/mlrLegacy/testData/changeLog.yml \
 --url="jdbc:postgresql://${MLR_RDS_ADDRESS}:5432/mlr_legacy" \
 --logLevel=debug \

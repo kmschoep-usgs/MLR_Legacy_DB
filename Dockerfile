@@ -1,4 +1,4 @@
-FROM mdillon/postgis:9.6-alpine
+FROM mdillon/postgis:10-alpine
 
 LABEL David Steinich <drsteini@usgs.gov>
 
@@ -17,24 +17,10 @@ ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV PATH $PATH:$JAVA_HOME/bin
 
 RUN set -x \
-    && apk update && apk upgrade \
-    && apk add --no-cache bash \
-    && apk add --no-cache curl\
-    && apk add --no-cache openjdk8 
-    
-###########################################
-# Install git
-###########################################
-
-RUN set -x \
-    && apk update && apk upgrade \
-    && apk add bash \
-    curl \
-    openjdk8 \
-    git \
-    openssh && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm /var/cache/apk/*
+    apt update && \
+	apk add --no-cache \
+	curl \openjdk8 \git \openssh && \
+	rm -rf /var/lib/apt/lists/* 
 
 ############################################
 # Install Liquibase
@@ -51,7 +37,7 @@ RUN curl -Lk https://github.com/liquibase/liquibase/releases/download/liquibase-
     tar -xzf liquibase.tar.gz -C $LIQUIBASE_HOME/ && \
     rm liquibase.tar.gz
 
-RUN curl -Lk https://jdbc.postgresql.org/download/postgresql-$POSTGRES_JDBC_VERSION.jar > $LIQUIBASE_HOME/lib/postgresql-$POSTGRES_JDBC_VERSION.jar
+RUN curl -Lk https://jdbc.postgresql.org/download/postgresql-$POSTGRES_JDBC_VERSION.jar > $LIQUIBASE_HOME/lib/postgresql.jar
 
 RUN curl -Lk https://github.com/USGS-CIDA/mlr-legacy-liquibase/archive/v$MLR_LIQUIBASE_VERSION.tar.gz > mlr-legacy-liquibase.tar.gz && \
 	tar -xzf mlr-legacy-liquibase.tar.gz -C $LIQUIBASE_HOME/ && \
