@@ -13,3 +13,5 @@ services:
     ports:
       - "5435:5432"
     container_name: mlr_legacy_db_test
+    env_file:
+        - docker-compose.env
