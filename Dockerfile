@@ -29,20 +29,22 @@ RUN set -x \
 ENV LIQUIBASE_HOME /opt/liquibase
 ENV LOCALONLY "-c listen_addresses='127.0.0.1, ::1'"
 ENV LIQUIBASE_VERSION 3.5.3
-ENV POSTGRES_JDBC_VERSION 42.2.4
-ENV MLR_LIQUIBASE_VERSION 1.0
+ENV POSTGRES_JDBC_VERSION postgresql-42.2.4.jar
+ENV MLR_LIQUIBASE_VERSION 1.1
 
-RUN mkdir -p $LIQUIBASE_HOME
+#RUN mkdir -p $LIQUIBASE_HOME
+WORKDIR $LIQUIBASE_HOME
 RUN curl -Lk https://github.com/liquibase/liquibase/releases/download/liquibase-parent-$LIQUIBASE_VERSION/liquibase-$LIQUIBASE_VERSION-bin.tar.gz > liquibase.tar.gz && \
     tar -xzf liquibase.tar.gz -C $LIQUIBASE_HOME/ && \
     rm liquibase.tar.gz
 
-RUN curl -Lk https://jdbc.postgresql.org/download/postgresql-$POSTGRES_JDBC_VERSION.jar > $LIQUIBASE_HOME/lib/postgresql.jar
+RUN curl -Lk https://jdbc.postgresql.org/download/$POSTGRES_JDBC_VERSION > $LIQUIBASE_HOME/lib/postgresql.jar
 
 RUN curl -Lk https://github.com/USGS-CIDA/mlr-legacy-liquibase/archive/v$MLR_LIQUIBASE_VERSION.tar.gz > mlr-legacy-liquibase.tar.gz && \
 	tar -xzf mlr-legacy-liquibase.tar.gz -C $LIQUIBASE_HOME/ && \
 	rm mlr-legacy-liquibase.tar.gz 
 RUN mv $LIQUIBASE_HOME/mlr-legacy-liquibase-$MLR_LIQUIBASE_VERSION $LIQUIBASE_HOME/mlr-legacy-liquibase
+WORKDIR $LIQUIBASE_HOME/mlr-legacy-liquibase
 
 
 ############################################
@@ -51,11 +53,12 @@ RUN mv $LIQUIBASE_HOME/mlr-legacy-liquibase-$MLR_LIQUIBASE_VERSION $LIQUIBASE_HO
 
 COPY ./testData $LIQUIBASE_HOME/mlr-legacy-liquibase/mlr-liquibase/mlrLegacy/testData
 
-COPY ./dbInit/1_run_liquibase.sh /docker-entrypoint-initdb.d/
+RUN chmod -R 777 $LIQUIBASE_HOME
+
+COPY $LIQUIBASE_HOME/mlr-legacy-liquibase/mlr-liquibase/dbInit/1_run_liquibase.sh /docker-entrypoint-initdb.d/
 
 COPY ./dbInit/z.sh /docker-entrypoint-initdb.d/
 
-RUN chmod -R 777 $LIQUIBASE_HOME
 
 HEALTHCHECK --interval=2s --timeout=3s \
  CMD PGPASSWORD="${POSTGRES_PASSWORD}" | \

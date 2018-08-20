@@ -10,6 +10,7 @@ services:
       - MLR_LEGACY_USER_PASSWORD=${MLR_LEGACY_USER_PASSWORD}
       - MLR_RDS_ADDRESS=${MLR_RDS_ADDRESS}
       - MLR_LIQUIBASE_VERSION=${MLR_LIQUIBASE_VERSION}
+      - POSTGRES_INITDB_ARGS="${LIQUIBASE_HOME} /mlr-liquibase ${MLR_LIQUIBASE_VERSION} ${POSTGRES_JDBC_VERSION} '${POSTGRES_PASSWORD}' mlr_legacy '${MLR_LEGACY_PASSWORD}' mlr_legacy_user ${MLR_LEGACY_USER_PASSWORD} mlr_legacy_data ${MLR_RDS_ADDRESS} 5432"   
     ports:
       - "5435:5432"
     container_name: mlr-legacy-db-test
