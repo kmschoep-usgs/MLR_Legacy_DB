@@ -51,9 +51,17 @@ RUN mv $LIQUIBASE_HOME/mlr-legacy-liquibase-$MLR_LIQUIBASE_VERSION $LIQUIBASE_HO
 
 COPY ./testData $LIQUIBASE_HOME/mlr-legacy-liquibase/mlr-liquibase/mlrLegacy/testData
 
-RUN chmod -R 777 $LIQUIBASE_HOME
-
 COPY ./dbInit/1_run_liquibase.sh /docker-entrypoint-initdb.d/
+
+COPY ./dbInit/z.sh /docker-entrypoint-initdb.d/
+
+COPY ./dbInit/postgres.properties $LIQUIBASE_HOME/
+
+COPY ./dbInit/databaseCreate.properties $LIQUIBASE_HOME/
+
+COPY ./dbInit/liquibase.properties $LIQUIBASE_HOME/
+
+RUN chmod -R 777 $LIQUIBASE_HOME
 
 HEALTHCHECK --interval=2s --timeout=3s \
  CMD PGPASSWORD="${POSTGRES_PASSWORD}" | \
