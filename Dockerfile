@@ -33,7 +33,6 @@ ENV POSTGRES_JDBC_VERSION postgresql-42.2.4.jar
 ENV MLR_LIQUIBASE_VERSION 1.1
 
 RUN mkdir -p $LIQUIBASE_HOME
-#WORKDIR $LIQUIBASE_HOME
 RUN curl -Lk https://github.com/liquibase/liquibase/releases/download/liquibase-parent-$LIQUIBASE_VERSION/liquibase-$LIQUIBASE_VERSION-bin.tar.gz > liquibase.tar.gz && \
     tar -xzf liquibase.tar.gz -C $LIQUIBASE_HOME/ && \
     rm liquibase.tar.gz
@@ -44,7 +43,6 @@ RUN curl -Lk https://github.com/USGS-CIDA/mlr-legacy-liquibase/archive/v$MLR_LIQ
 	tar -xzf mlr-legacy-liquibase.tar.gz -C $LIQUIBASE_HOME/ && \
 	rm mlr-legacy-liquibase.tar.gz 
 RUN mv $LIQUIBASE_HOME/mlr-legacy-liquibase-$MLR_LIQUIBASE_VERSION $LIQUIBASE_HOME/mlr-legacy-liquibase
-#WORKDIR $LIQUIBASE_HOME/mlr-legacy-liquibase
 
 
 ############################################
@@ -53,19 +51,9 @@ RUN mv $LIQUIBASE_HOME/mlr-legacy-liquibase-$MLR_LIQUIBASE_VERSION $LIQUIBASE_HO
 
 COPY ./testData $LIQUIBASE_HOME/mlr-legacy-liquibase/mlr-liquibase/mlrLegacy/testData
 
-COPY ./dbInit/restart_postgres.sh .
-
 RUN chmod -R 777 $LIQUIBASE_HOME
 
-RUN chmod a+x $LIQUIBASE_HOME/mlr-legacy-liquibase/mlr-liquibase/dbInit/1_run_liquibase.sh ./restart_postgres.sh
-
-#RUN cp $LIQUIBASE_HOME/mlr-legacy-liquibase/mlr-liquibase/dbInit/1_run_liquibase.sh /docker-entrypoint-initdb.d/
-
-#COPY ./dbInit/restart_postgres.sh /docker-entrypoint-initdb.d/
-
-RUN ./restart_postgres.sh
-
-CMD ["sh", "-c", "./opt/liquibase/mlr-legacy-liquibase/mlr-liquibase/dbInit/1_run_liquibase.sh ${LIQUIBASE_HOME} /mlr-liquibase ${MLR_LIQUIBASE_VERSION} postgresql.jar '${POSTGRES_PASSWORD}' mlr_legacy '${MLR_LEGACY_PASSWORD}' mlr_legacy_user, '${MLR_LEGACY_USER_PASSWORD}' mlr_legacy_data ${MLR_RDS_ADDRESS} 5432"]
+COPY ./dbInit/1_run_liquibase.sh /docker-entrypoint-initdb.d/
 
 HEALTHCHECK --interval=2s --timeout=3s \
  CMD PGPASSWORD="${POSTGRES_PASSWORD}" | \
