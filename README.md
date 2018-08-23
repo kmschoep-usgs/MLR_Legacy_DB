@@ -2,14 +2,18 @@
 Liquibase/Docker Configuration for the Legacy Monitoring Location Database
 
 ## Database Setup
-This project will provision a postgreSQL database in a Docker container and expose it to the host system on port 5435. You will need both Docker (Machine) and Docker Compose to build and run the database container.
+This project will provision a postgreSQL database in a Docker container, load some test data and expose it to the host system on port 5435. You will need both Docker (Machine) and Docker Compose to build and run the database container.
 
 Also, create a .env file in you project's root directory to specify passwords for the database. It should contain:
 ```
+LIQUIBASE_HOME=/opt/liquibase
+POSTGRES_JDBC_VERSION=postgres-42.2.4.jar
 POSTGRES_PASSWORD=changeMe
 MLR_LEGACY_PASSWORD=changeMe
 MLR_LEGACY_DATA_PASSWORD=changeMe
 MLR_LEGACY_USER_PASSWORD=changeMe
+MLR_RDS_ADDRESS=127.0.0.1
+MLR_LIQUIBASE_VERSION=1.5
 ```
 
 ## Handy Commands

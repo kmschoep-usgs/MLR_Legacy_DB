@@ -1,14 +1,18 @@
 version: '3'
 services:
-  mlr_legacy_db:
+  mlr-legacy-db:
     build:
       context: .
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - MLR_LEGACY_PASSWORD=${MLR_LEGACY_PASSWORD}
-      - MLR_LEGACY_DATA_PASSWORD=${MLR_LEGACY_DATA_PASSWORD}
       - MLR_LEGACY_USER_PASSWORD=${MLR_LEGACY_USER_PASSWORD}
-      - MLR_RDS_ADDRESS=${MLR_RDS_ADDRESS}
+      - MLR_LIQUIBASE_VERSION=${MLR_LIQUIBASE_VERSION}
+      - POSTGRES_JDBC_VERSION=${POSTGRES_JDBC_VERSION}
+      - LIQUIBASE_HOME=${LIQUIBASE_HOME}  
+
     ports:
       - "5435:5432"
-    container_name: mlr_legacy_db
+    container_name: mlr-legacy-db
+    env_file:
+        - docker-compose.env
