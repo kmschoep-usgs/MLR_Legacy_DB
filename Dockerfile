@@ -1,6 +1,6 @@
 FROM mdillon/postgis:10-alpine
 
-LABEL David Steinich <drsteini@usgs.gov>
+LABEL maintainer="gs-w_eto_eb_federal_employees@usgs.gov"
 
 ############################################
 # Required for JRE 8 - Java 8 is required to run the Liquibase JAR - lifted from https://github.com/docker-library/openjdk
@@ -19,7 +19,7 @@ ENV PATH $PATH:$JAVA_HOME/bin
 RUN set -x \
     apt update && \
 	apk add --no-cache \
-	curl \openjdk8 \git \openssh && \
+	curl openjdk8 git openssh && \
 	rm -rf /var/lib/apt/lists/* 
 
 ############################################
