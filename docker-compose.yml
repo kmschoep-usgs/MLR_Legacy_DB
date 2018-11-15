@@ -3,6 +3,7 @@ services:
   mlr-legacy-db:
     build:
       context: .
+    image: mlr-legacy-db
     ports:
       - "5435:5432"
     container_name: mlr-legacy-db
