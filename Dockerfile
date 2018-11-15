@@ -19,8 +19,8 @@ ENV PATH $PATH:$JAVA_HOME/bin
 RUN set -x \
     apt update && \
 	apk add --no-cache \
-	curl openjdk8 git openssh &&
-	apk add -u libxml2 && \
+	curl openjdk8 git openssh && \
+	apk add --no-cache -u libxml2 && \
 	rm -rf /var/lib/apt/lists/*
 
 ############################################
