@@ -20,7 +20,8 @@ RUN set -x \
     apt update && \
 	apk add --no-cache \
 	curl openjdk8 git openssh && \
-	rm -rf /var/lib/apt/lists/* 
+	apk add --no-cache -u libxml2 && \
+	rm -rf /var/lib/apt/lists/*
 
 ############################################
 # Install Liquibase
@@ -46,7 +47,7 @@ RUN curl -Lk https://jdbc.postgresql.org/download/$POSTGRES_JDBC_VERSION > $LIQU
 
 RUN curl -Lk https://github.com/USGS-CIDA/mlr-legacy-liquibase/archive/$MLR_LIQUIBASE_VERSION.zip > mlr-legacy-liquibase.zip && \
 	unzip mlr-legacy-liquibase.zip -d $LIQUIBASE_HOME/ && \
-	rm mlr-legacy-liquibase.zip 
+	rm mlr-legacy-liquibase.zip
 RUN mv $LIQUIBASE_HOME/mlr-legacy-liquibase-$MLR_LIQUIBASE_VERSION $LIQUIBASE_HOME/mlr-legacy-liquibase
 
 
