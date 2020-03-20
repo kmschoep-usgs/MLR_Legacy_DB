@@ -52,3 +52,15 @@ ${LIQUIBASE_HOME}/liquibase \
 --logLevel=debug \
 update \
 	-DMLR_LEGACY_PASSWORD=${MLR_LEGACY_PASSWORD}
+	
+# turn on auditing
+${LIQUIBASE_HOME}/liquibase \
+	--classpath=${LIQUIBASE_HOME}/lib/postgresql.jar \
+	--changeLogFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/postgres/mlr_legacy/changeLogAudit.yml \
+	--driver=org.postgresql.Driver \
+	--url=jdbc:postgresql://127.0.0.1:$PGPORT/mlr_legacy \
+	--username=postgres \
+	--password=${POSTGRES_PASSWORD} \
+	--logLevel=debug \
+	update \
+	-DPOSTGRES_PASSWORD=${POSTGRES_PASSWORD} 
