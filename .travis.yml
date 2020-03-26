@@ -27,7 +27,7 @@ before_install:
   - git clone https://github.com/docker/docker-bench-security.git
 
 install:
-  - docker-compose -f docker-compose.yml up -d --build
+  - docker-compose -f docker-compose.yml up -d --build mlr-legacy-db
 
 script:
   - docker ps -a | grep -q "${DOCKER_IMAGE}"

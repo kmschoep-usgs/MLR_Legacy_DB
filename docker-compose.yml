@@ -9,3 +9,13 @@ services:
     container_name: mlr-legacy-db
     env_file:
         - docker-compose.env
+  mlr-legacy-db-local-dev:
+    build:
+      context: .
+    image: mlr-legacy-db
+    network_mode: host
+    ports:
+      - "5435:5432"
+    container_name: mlr-legacy-db
+    env_file:
+        - docker-compose-local.env
