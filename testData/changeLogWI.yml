@@ -2,7 +2,7 @@ databaseChangeLog:
 
   - changeSet:
       author: kmschoep
-      id: "load.data.mlr_legacy_data.legacy_location_NWISAK"
+      id: "load.data.mlr_legacy_data.legacy_location_NWISWI"
       preConditions:
         - onFail: MARK_RAN
         - onError: HALT
@@ -12,7 +12,7 @@ databaseChangeLog:
       changes:
         - loadData:
             encoding: UTF-8
-            file: "NWISAK.csv"
+            file: "nwiswi.csv"
             quotchar: '"'
             schemaName: mlr_legacy_data
             separator: ','
