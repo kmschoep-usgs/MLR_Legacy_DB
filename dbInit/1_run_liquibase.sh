@@ -45,7 +45,7 @@ update \
 echo "data load scripts"
 ${LIQUIBASE_HOME}/liquibase \
 --classpath=${LIQUIBASE_HOME}/lib/postgresql.jar \
---changeLogFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/mlr_legacy/testData/changeLogAK.yml \
+--changeLogFile=${LIQUIBASE_HOME}/mlr-legacy-liquibase/mlr-liquibase/mlr_legacy/testData/changeLogWI.yml \
 --url=jdbc:postgresql://127.0.0.1:$PGPORT/mlr_legacy \
 --username=mlr_legacy \
 --password=${MLR_LEGACY_PASSWORD} \
